@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        a{
+            text-decoration: none;
+        }
+        body{
+            background: #ccc;
+        }
+        .container{
+            width: 800px;
+            height:395px;
+            position: absolute;
+            top:50%;
+            left:50%;
+            margin-top:-300px;
+            margin-left:-400px;
+        }
+        .control{
+            position: absolute;
+            left: 0;
+            bottom:0;
+            height: 50px;
+            width:800px;
+            background: #000;
+        }
+        .playbar_left{
+            float:left;
+            width:100px;
+            height:50px;
+        }
+        .playbar_left a{
+            float: left;
+            line-height: 50px;
+            color:#fff;
+        }
+        .play{
+            margin-left:20px;
+            font-size:24px;
+        }
+        .stop{
+            margin-left:20px;
+            font-size:20px;
+        }
+        span{
+            margin-left:50px;
+            color:#fff;
+            line-height:50px;
+            font-size:16px;
+        }
+        .pro{
+            vertical-align: top;
+            display: inline-block;
+            margin-top: 20px;
+            margin-left: 40px;
+            width: 300px;
+            height: 6px;
+            border-radius: 1px;
+            background:#fff;
+            position: relative;
+            cursor: pointer;
+            
+        }
+        
+        .step{
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 1px;
+            background: #f80;
+            height: 6px;
+        }
+        .playbar_right{
+            float:right;
+            width:80px;
+            height:50px;
+        }
+        .playbar_right a{
+            display: block;
+            float: left;
+            line-height: 50px;
+            color:#fff;
+        }
+        .vol{
+            font-size:20px;
+            margin-right:20px;
+        }
+        .all{
+            font-size:24px;
+            margin-right:20px;
+        }
+    </style>
+</head>
+<body>
+        <div class="container">
+            <video id="video" src="3theB.mp4" width="800"></video>
+            <div class="control">
+                <div class="playbar_left">
+                    <a href="javescript:;"><i class="fa fa-play-circle play"></i></a>
+                    <a href="javescript:;"><i class="fa fa-stop stop"></i></a>
+                </div>
+                <span class="time" style="font-size: 14px;">
+                    <n class="min1">00</n>:<n class="sec1">00</n>/<n class="min2">00</n>:<n class="sec2">00</n> 
+                </span>
+                <div class="pro">
+                    <p class="step"></p>
+                </div>
+                <div class="playbar_right">
+                    <a href="javescript:;"><i class="fa fa-volume-down vol"></i></a>
+                    <a href="javescript:;"><i class="fa fa-arrows-alt all"></i></a>
+                </div>
+            </div> 
+        </div>
+
+
+        <script>
+            var video = document.getElementById("video");
+            var onoff = true;
+            function musicTime() {
+                var time = null;
+                spd = video.duration;
+                $('.min2').text(parseInt(spd / 60));
+                $('.sec2').text(parseInt(spd % 60));
+            }
+            $(".play").click(function () {
+                musicTime();
+                if (onoff) {
+                    video.play();
+                    $(this).removeClass("fa-play-circle");
+                    $(this).addClass("fa-pause");
+                } else {
+                    video.pause();
+                    $(this).removeClass("fa-pause");
+                    $(this).addClass("fa-play-circle");
+                }
+                onoff = !onoff
+            });
+            $(".stop").click(function(){
+                video.load();
+                video.pause();
+                onoff = !onoff;
+                $(".play").removeClass("fa-pause");
+                $(".play").addClass("fa-play-circle");
+                $(".step").css("width",0);
+            });
+            $(".all").click(function(){
+                video.webkitRequestFullScreen()
+            });
+            
+            //进度移动
+            $(".pro").click(function (e) {
+                e = e || event;
+                var pro_w = e.clientX - $(".pro").offset().left;
+                video.currentTime = parseInt(pro_w / 300 * video.duration);
+            })
+
+            //播放时间
+            video.addEventListener('timeupdate', function () {
+                var distance = video.currentTime;
+                var disMin = parseInt(distance / 60) < 10 ? "0" + parseInt(distance / 60) : parseInt(distance / 60);
+                var disSec = parseInt(distance % 60) < 10 ? "0" + parseInt(distance % 60) : parseInt(distance % 60);
+                $('.min1').text(disMin);
+                $('.sec1').text(disSec);
+                var percent = video.currentTime / video.duration;
+                $(".step").css("width", 300 * percent);           
+            })
+        </script>
+
+</body>
+</html>

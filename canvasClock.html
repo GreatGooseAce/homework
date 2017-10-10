@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>clock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #myCanvas {
+            background: #eee;
+            position: absolute;
+            top: 100px;
+            left: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        clock();
+        setInterval(clock, 1000);
+
+        function clock() {
+            var now = new Date();
+            var sec = now.getSeconds();
+            var min = now.getMinutes();
+            var hr = now.getHours();
+            hr = hr >= 12 ? hr - 12 : hr;
+            
+            ctx.save();
+            ctx.clearRect(0, 0, 400, 400);
+            ctx.translate(200, 200);
+            ctx.scale(0.6, 0.6);
+            ctx.rotate(-Math.PI / 2);
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 8;
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(0, 0, 240, 0, 2 * Math.PI, false);
+            ctx.fillStyle = "#F8E89A";
+            ctx.fill();
+            ctx.lineWidth = 20;
+            ctx.strokeStyle = "#B26511";
+            ctx.stroke();
+            ctx.restore();
+
+            // Hour marks  
+            ctx.save();
+            for (var i = 0; i <= 12; i++) {
+                ctx.beginPath();
+                ctx.moveTo(200, 0);
+                ctx.lineTo(220, 0);
+                ctx.stroke();
+                ctx.closePath();
+                ctx.rotate(Math.PI / 6);
+            }
+            ctx.restore();
+
+            // Minute marks  
+            ctx.save();
+            ctx.lineWidth = 5;
+            for (i = 0; i < 60; i++) {
+                if (i % 5 != 0) {
+                    ctx.beginPath();
+                    ctx.moveTo(200, 0);
+                    ctx.lineTo(205, 0);
+                    ctx.stroke();
+                }
+                ctx.rotate(Math.PI / 30);
+            }
+            ctx.restore();
+
+            // write hours
+            ctx.save();
+            ctx.rotate(hr * (Math.PI / 6) + (Math.PI / 360) * min + (Math.PI / 21600) * sec);
+            ctx.lineWidth = 16;
+            ctx.beginPath();
+            ctx.moveTo(-30, 0);
+            ctx.lineTo(120, 0);
+            ctx.stroke();
+            ctx.restore();
+            //write minute
+            ctx.save();
+            ctx.rotate((Math.PI / 30) * min + (Math.PI / 1800) * sec)
+            ctx.lineWidth = 14;
+            ctx.beginPath();
+            ctx.moveTo(-28, 0);
+            ctx.lineTo(180, 0);
+            ctx.stroke();
+            ctx.restore();
+            // Write seconds  
+            ctx.save();
+            ctx.rotate(sec * Math.PI / 30);
+            ctx.strokeStyle = "#ff0000";
+            ctx.fillStyle = "#ff0000";
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(-30, 0);
+            ctx.lineTo(200, 0);
+            ctx.stroke();
+            ctx.restore();
+
+            ctx.restore();
+        }
+    </script>
+</body>
+
+</html>

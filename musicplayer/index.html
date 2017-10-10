@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>musicplayer</title>
+    <link rel="stylesheet" href="music.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/music.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top">
+            <div class="top_left">
+                <div class="pic"></div>
+            </div>
+            <div class="handbar"></div>
+            <div class="top_right">
+                <h1 style="font-size:50px;font-weight:normal">演员</h1>
+                <span style="font-size:24px;">薛之谦</span>&nbsp;
+                <span>专辑：绅士</span>
+                <div class="playbar">
+                    <div class="playbar_left">
+                        <a href="javescript:;"><i class="fa fa-backward"></i></a>
+                        <a href="javescript:;"><i class="fa fa-play goplay"></i></a>
+                        <a href="javescript:;"><i class="fa fa-forward"></i></a>
+                    </div>
+                    <div class="playbar_right">
+                        <a href="javascript:;"><i class="fa fa-random"></i></a>
+                        <a href="javascript:;"><i class="fa fa-undo"></i></a>
+                        <a class="volkey" href="javascript:;">
+                            <i class="fa fa-volume-down govolume"></i>
+                            <div class="vol">
+                                <div class="vol1"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="speed">
+                    <span class="time" style="font-size: 14px;">
+						<n class="min1">00</n>:<n class="sec1">00</n>/<n class="min2">00</n>:<n class="sec2">00</n> 
+                    </span>
+                    <div class="jindu">
+                        <p class="xxx"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="center">
+            <li>丑八怪
+                <p><b>薛之谦</b><span>专题：绅士</span></p>
+            </li>
+            <li>绅士
+                <p><b>薛之谦</b><span>专题：绅士</span></p>
+            </li>
+            <li>一半
+                <p><b>薛之谦</b><span>专题：绅士</span></p>
+            </li>
+            <li>认真的雪
+                <p><b>薛之谦</b><span>专题：绅士</span></p>
+            </li>
+        </ul>
+    </div>
+    <audio id="audio" src="music/演员 - 薛之谦.mp3" type="audio/mp3"></audio>
+
+</body>
+
+</html>
